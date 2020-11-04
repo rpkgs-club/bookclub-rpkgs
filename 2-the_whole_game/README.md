@@ -1,4 +1,12 @@
-# Fixes for chapter 2: The whole game
+## RStudio
+
+Change git path to `/usr/local/bin` in this JSON file:
+
+```
+~/.config/rstudio/rstudio-prefs.json
+```
+
+## Fixes for chapter 2: The whole game
 
 ```r
 packageVersion("devtools")
@@ -17,4 +25,3 @@ library(fs)
 dir_info(all = TRUE, regexp = "^[.]git$") %>%
   select(path, type)
 ```
-
