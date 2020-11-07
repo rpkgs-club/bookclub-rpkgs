@@ -11,7 +11,7 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 ```
 
 More on library search see
-https://r-pkgs.org/package-structure-state.html#library[4.7 Package libraries].
+[4.7 Package libraries](https://r-pkgs.org/package-structure-state.html#library).
 
 For example, on MacOS I have:
 ```r
