@@ -2,9 +2,23 @@
 
 Change git path to `/usr/local/bin` in this JSON file:
 
+```sh
+cat ~/.config/rstudio/rstudio-prefs.json
 ```
-~/.config/rstudio/rstudio-prefs.json
+
+```r
+lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 ```
+
+More on library search see
+https://r-pkgs.org/package-structure-state.html#library[4.7 Package libraries].
+
+For example, on MacOS I have:
+```r
+.libPaths()
+# "/Library/Frameworks/R.framework/Versions/4.0/Resources/library"
+```
+
 
 ## Fixes for chapter 2: The whole game
 
@@ -49,4 +63,28 @@ use_r()
 
 ```r
 exists("fbind", where = globalenv(), inherits = FALSE)
+```
+
+```r
+(a <- factor(c("character", "hits", "your", "eyeballs")))
+(b <- factor(c("but", "integer", "where it", "counts")))
+#> [1] character hits      your      eyeballs
+#> Levels: character eyeballs hits your
+#> [1] but      integer  where it counts
+#> Levels: but counts integer where it
+c(a, b)
+(a <- factor(c("character", "hits", "your", "eyeballs")))
+#> [1] character hits      your      eyeballs
+#> Levels: character eyeballs hits your
+(b <- factor(c("but", "integer", "where it", "counts")))
+#> [1] but      integer  where it counts
+#> Levels: but counts integer where it
+c(a, b)
+#> [1] 1 3 4 2 1 3 4 2```
+```
+
+```r
+load_all()
+fbind(a, b)
+check()
 ```
