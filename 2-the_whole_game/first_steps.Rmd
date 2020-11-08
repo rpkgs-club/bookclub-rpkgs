@@ -161,8 +161,7 @@ RoxygenNote: 7.1.1
 ✓ Setting active project to '<no active project>'
 ```
 
-```{r eval=FALSE, include=FALSE}
-# ?fs::dir_info
+```{r}
 fs::dir_info(
     all = TRUE, 
     regexp = "^[.]git$",
