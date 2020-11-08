@@ -1,0 +1,102 @@
+---
+title: "Creating R package -- first steps"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  # fig.path = "figures/README-",
+  out.width = "100%"
+)
+```
+
+
+## Managing package libraries
+
+* Package structure and state. 
+[4.7 Package libraries](https://r-pkgs.org/package-structure-state.html#library).
+
+Here are the main two levers that control which libraries
+are active, in order of scope and persistence:
+
+1. Environment variables, like `R_LIBS` and `R_LIBS_USER`,
+which are consulted at startup.
+1. Calling `.libPaths()` with one or more filepaths.
+
+```sh
+mkdir -p ~/Library/R/4.0/library
+```
+
+```{sh}
+cat ~/.Rprofile.site
+```
+
+```{sh}
+echo $R_LIBS_USER
+```
+
+```{r}
+.Library
+.Library.site
+```
+
+In both cases we see two active libraries, consulted in this order:
+
+1. A user library.
+1. A system-level or global library.
+
+```{r}
+.libPaths()
+```
+
+```{r}
+lapply(
+  .libPaths(), 
+  list.dirs, 
+  recursive = FALSE, 
+  full.names = FALSE)
+```
+
+
+## Check what is installed
+
+```{r message=FALSE, warning=FALSE}
+packageVersion("devtools")
+
+options(buildtools.check = NULL)
+# devtools::install_github("r-lib/devtools")
+# packageVersion("devtools")
+```
+
+Optionally run:
+
+```{r}
+# tidyverse::tidyverse_update()
+# tidyverse::tidyverse_conflicts()
+tidyverse::tidyverse_packages()
+```
+
+
+## Create package
+
+```{r}
+library(devtools)
+library(tidyverse)
+library(fs)
+```
+
+```{r}
+# ?fs::dir_info
+
+# dir_info(all = TRUE) %>% 
+#   select(path, type)
+# dir_info(all = TRUE, regexp = "^[.]git$") %>% 
+#   select(path, type)
+dir_info(all = TRUE, regexp = "^[.]git$", invert = TRUE) %>% 
+  select(path, type)
+```
+
