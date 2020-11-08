@@ -12,13 +12,18 @@ knitr::opts_chunk$set(
   # fig.path = "figures/README-",
   out.width = "100%"
 )
+
+`%>%` <- purrr::`%>%`
 ```
 
-
-## Managing package libraries
+## More info...
 
 * Package structure and state. 
 [4.7 Package libraries](https://r-pkgs.org/package-structure-state.html#library).
+* [Comparison of `fs` functions, base R, and shell commands](https://cran.r-project.org/web/packages/fs/vignettes/function-comparisons.html)
+
+
+## Managing package libraries
 
 Here are the main two levers that control which libraries
 are active, in order of scope and persistence:
@@ -81,7 +86,7 @@ tidyverse::tidyverse_packages()
 ```
 
 
-## Create package
+## [Create package](https://r-pkgs.org/workflows101.html#create-a-package)
 
 ```{r}
 library(devtools)
@@ -89,14 +94,57 @@ library(tidyverse)
 library(fs)
 ```
 
+### Name your package
+
+TODO.
+
+
+
+
+
 ```{r}
 # ?fs::dir_info
 
-# dir_info(all = TRUE) %>% 
-#   select(path, type)
-# dir_info(all = TRUE, regexp = "^[.]git$") %>% 
-#   select(path, type)
-dir_info(all = TRUE, regexp = "^[.]git$", invert = TRUE) %>% 
-  select(path, type)
+fs::dir_info(
+    all = TRUE, 
+    regexp = "^[.]git$",
+    invert = TRUE) %>% 
+  dplyr::select(path, type)
+```
+
+```{r}
+package_name <- "xfoo"
+
+pkg_path <- fs::path(.libPaths()[[1]], package_name)
+src_path <- fs::path("~/RRR/GUMED", "package_name)
+```
+
+```{r}
+# usethis::create_package(?)
+```
+
+
+
+
+
+
+
+
+
+
+
+## TODO
+
+```{r}
+fs::dir_info(recurse = TRUE) %>%
+  dplyr::filter(
+    type == "file",
+    permissions == "u+r",
+    size > "10KB") %>%
+  dplyr::arrange(
+    desc(size)) %>%
+  dplyr::select(
+    path, permissions, size, modification_time
+  )
 ```
 
